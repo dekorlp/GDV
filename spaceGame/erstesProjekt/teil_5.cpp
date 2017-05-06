@@ -6,9 +6,11 @@
 #include <GL/SOIL.h>
 #include "WuerfelTextured.h"
 #include "Wuerfel.h"
+#include "CubeMap.h"
 
 float fRotation = 315.0;
-GLuint tex_space;    // Textur-ID
+//GLuint tex_space;    // Textur-ID
+CubeMap cubemap;
 
 void Init()	
 {
@@ -18,13 +20,15 @@ void Init()
    // durchgeführt werden müssen
 
 	// Textur einlesen
-	tex_space = SOIL_load_OGL_texture("textures/space.bmp", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+	/*tex_space = SOIL_load_OGL_texture("textures/space.bmp", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	if (tex_space != 1)
 	{
 		std::cout << "Textur konnte nicht geladen werden" << std::endl;
-	}
-	glBindTexture(GL_TEXTURE_2D, tex_space);
+	}*/
+	//glBindTexture(GL_TEXTURE_2D, tex_space);
+	
+	cubemap.initCubeMap();
 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
@@ -45,31 +49,34 @@ float counter = 0;
 
 void RenderScene() //Zeichenfunktion
 {
-	float cameraPositionX = 1.; // Vorne: 0. 0. 6.
-	float cameraPositionY = 3.; // Schräg Oben: 1 3. 3.
-	float cameraPositionZ = 3.; // Schräg unten: 1. -2. 3.
+	float cameraPositionX = 0.5; // Vorne: 0. 0. 6.
+	float cameraPositionY = 0.; // Schräg Oben: 1 3. 3.
+	float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
 
    // Hier befindet sich der Code der in jedem Frame ausgefuehrt werden muss
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity ();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
 	gluLookAt(cameraPositionX, cameraPositionY, cameraPositionZ, 0., 0., 0., 0., 1., 0.); // // Ansicht Schräg oben
-   
+
 	// Schiffskoerper
-	glPushMatrix();
-	glTranslatef(0.5, 1.5, 1.5);
-	glRotatef(fRotation / 2, 0, 1, 0);
-	glScalef(2, 1, 1);
-	Wuerfel(0.4);
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(0.5, 1.5, 1.5);
+	//glRotatef(fRotation / 2, 0, 1, 0);
+	//glScalef(2, 1, 1);
+	//Wuerfel(0.4);
+	//glPopMatrix();
    
 	// Skybox with texture
 	glPushMatrix();
+	
+	glTranslatef(cameraPositionX-5, cameraPositionY-5, cameraPositionZ-5);
 	glDisable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
-	glTranslatef(cameraPositionX, cameraPositionY, cameraPositionZ);
-	glScalef(8,8,8);
-	WuerfelTextured(1);
+	//glTranslatef(cameraPositionX, cameraPositionY, cameraPositionZ);
+	
+	
+	cubemap.createVertizes(20);
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	glPopMatrix();

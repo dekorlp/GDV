@@ -5,9 +5,11 @@
 #include <GL/freeglut.h>
 #include "WuerfelTextured.h"
 
-
 void WuerfelTextured(GLfloat fSeitenL)
 { 
+
+
+	
 	glBegin(GL_POLYGON);   //Vorderseite
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	glTexCoord2f(0.0f, 0.0f);
@@ -81,3 +83,4 @@ void WuerfelTextured(GLfloat fSeitenL)
 
 	return;
 }
+
