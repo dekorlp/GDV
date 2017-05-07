@@ -16,22 +16,10 @@ void Init()
 {
 	glClearColor(0.33f, 0.225f, 0.0f, 1.0f);
 
-   // Hier finden jene Aktionen statt, die zum Programmstart einmalig 
-   // durchgeführt werden müssen
-
-	// Textur einlesen
-	/*tex_space = SOIL_load_OGL_texture("textures/space.bmp", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
-		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
-	if (tex_space != 1)
-	{
-		std::cout << "Textur konnte nicht geladen werden" << std::endl;
-	}*/
-	//glBindTexture(GL_TEXTURE_2D, tex_space);
-	
 	cubemap.initCubeMap();
-
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHTING);
+	cubemap.createVertizes(2048);
+	//glEnable(GL_LIGHT0);
+	//glEnable(GL_LIGHTING);
 	GLfloat light_position[] = { -5, 2, 5, 0. };
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position); // Licht Nr. 0 rechts oben
 
@@ -47,6 +35,8 @@ void Init()
 
 float counter = 0;
 
+float tesst = 0;
+
 void RenderScene() //Zeichenfunktion
 {
 	float cameraPositionX = 0.5; // Vorne: 0. 0. 6.
@@ -57,6 +47,8 @@ void RenderScene() //Zeichenfunktion
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity ();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
+
+	glRotatef(tesst+= 0.1, 0, 1, 0);
 	gluLookAt(cameraPositionX, cameraPositionY, cameraPositionZ, 0., 0., 0., 0., 1., 0.); // // Ansicht Schräg oben
 
 	// Schiffskoerper
@@ -70,15 +62,12 @@ void RenderScene() //Zeichenfunktion
 	// Skybox with texture
 	glPushMatrix();
 	
-	glTranslatef(cameraPositionX-5, cameraPositionY-5, cameraPositionZ-5);
-	glDisable(GL_LIGHTING);
-	glEnable(GL_TEXTURE_2D);
+	//glTranslatef(cameraPositionX-5, cameraPositionY-5, cameraPositionZ-5);
+	
 	//glTranslatef(cameraPositionX, cameraPositionY, cameraPositionZ);
 	
+	cubemap.drawCubeMap();
 	
-	cubemap.createVertizes(20);
-	glDisable(GL_TEXTURE_2D);
-	glEnable(GL_LIGHTING);
 	glPopMatrix();
 
    
@@ -102,7 +91,7 @@ void Reshape(int width,int height)
 	// Frustum definieren (siehe unten)
 	//glOrtho( GLdouble left, GLdouble right,   GLdouble bottom, GLdouble top,   GLdouble near, GLdouble far ); 
 	//glOrtho(-1., 1., -1., 1., 0.0, 2.0);
-	gluPerspective(45., 1., 0.1, 10.0);
+	gluPerspective(45., 1., 0.1, 2048);
 	// Matrix für Modellierung/Viewing 
 	glMatrixMode(GL_MODELVIEW);
 }

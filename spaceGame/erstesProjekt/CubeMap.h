@@ -8,7 +8,7 @@ private:
 	GLuint Right;
 	GLuint Top;
 
-	GLuint list;
+	GLuint cubeMapList;
 
 	float px, py, pz;
 	GLfloat mWidth, mHeight, mLength;
