@@ -6,7 +6,7 @@
 void CubeMap::initCubeMap()
 {
 
-	Back = SOIL_load_OGL_texture("textures/cubemap/Back.png", SOIL_FLAG_POWER_OF_TWO |SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
+	Back = SOIL_load_OGL_texture("textures/cubemap/Back.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	if (Back == 0) 
 	{
@@ -52,88 +52,74 @@ void CubeMap::initCubeMap()
 
 }
 
-void CubeMap::createVertizes(GLfloat fSeitenL)
+void CubeMap::createVertizes(GLfloat width, GLfloat height, GLfloat length)
 {
+	float x = 0;
+	float y = 0;
+	float z = 0;
 
 	cubeMapList = glGenLists(1);
 	glNewList(cubeMapList, GL_COMPILE);
 
+	x = x - width / 2;
+	y = y - height / 2;
+	z = z - length / 2;
+	
+
 	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D, Front);
-	glBegin(GL_POLYGON);   //Vorderseite
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f)
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(+fSeitenL / 2.0f, +fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-fSeitenL / 2.0f, +fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glEnd();
-
-
-	glBindTexture(GL_TEXTURE_2D, Right);
-	glBegin(GL_POLYGON);   //Rechte Seite
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(+fSeitenL / 2.0f, +fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(+fSeitenL / 2.0f, +fSeitenL / 2.0f, +fSeitenL / 2.0f);
+	glBindTexture(GL_TEXTURE_2D,  Front);
+	glBegin(GL_QUADS);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, Back);
-	glBegin(GL_POLYGON);   //Rueckseite
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(+fSeitenL / 2.0f, +fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-fSeitenL / 2.0f, +fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, Left);
-	glBegin(GL_POLYGON);   //Linke Seite
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-fSeitenL / 2.0f, +fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-fSeitenL / 2.0f, +fSeitenL / 2.0f, +fSeitenL / 2.0f);
+	glBegin(GL_QUADS);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z + length);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, Top);
-	glBegin(GL_POLYGON);   //Deckflaeche
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);	glVertex3f(-fSeitenL / 2.0f, +fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 0.0f);	glVertex3f(+fSeitenL / 2.0f, +fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 1.0f);	glVertex3f(+fSeitenL / 2.0f, +fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(0.0f, 1.0f);	 glVertex3f(-fSeitenL / 2.0f, +fSeitenL / 2.0f, -fSeitenL / 2.0f);
+	glBegin(GL_QUADS);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z + length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, Bottom);
-	glBegin(GL_POLYGON);   //Bodenflaeche
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, -fSeitenL / 2.0f);
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
+	glBegin(GL_QUADS);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
 	glEnd();
 
+	glBindTexture(GL_TEXTURE_2D, Left);
+	glBegin(GL_QUADS);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y, z + length);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
+
+	glEnd();
+	glBindTexture(GL_TEXTURE_2D, Right);
+	glBegin(GL_QUADS);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y, z + length);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y + height, z);
+	glEnd();
 	glPopMatrix();
 	glEndList();
 

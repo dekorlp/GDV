@@ -17,9 +17,9 @@ void Init()
 	glClearColor(0.33f, 0.225f, 0.0f, 1.0f);
 
 	cubemap.initCubeMap();
-	cubemap.createVertizes(2048);
-	//glEnable(GL_LIGHT0);
-	//glEnable(GL_LIGHTING);
+	cubemap.createVertizes(2048, 2048, 2048);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING);
 	GLfloat light_position[] = { -5, 2, 5, 0. };
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position); // Licht Nr. 0 rechts oben
 
@@ -39,7 +39,7 @@ float tesst = 0;
 
 void RenderScene() //Zeichenfunktion
 {
-	float cameraPositionX = 0.5; // Vorne: 0. 0. 6.
+	float cameraPositionX = 0; // Vorne: 0. 0. 6.
 	float cameraPositionY = 0.; // Schräg Oben: 1 3. 3.
 	float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
 
@@ -61,11 +61,6 @@ void RenderScene() //Zeichenfunktion
    
 	// Skybox with texture
 	glPushMatrix();
-	
-	//glTranslatef(cameraPositionX-5, cameraPositionY-5, cameraPositionZ-5);
-	
-	//glTranslatef(cameraPositionX, cameraPositionY, cameraPositionZ);
-	
 	cubemap.drawCubeMap();
 	
 	glPopMatrix();
@@ -91,7 +86,7 @@ void Reshape(int width,int height)
 	// Frustum definieren (siehe unten)
 	//glOrtho( GLdouble left, GLdouble right,   GLdouble bottom, GLdouble top,   GLdouble near, GLdouble far ); 
 	//glOrtho(-1., 1., -1., 1., 0.0, 2.0);
-	gluPerspective(45., 1., 0.1, 2048);
+	gluPerspective(45., 1., 10, 2048);
 	// Matrix für Modellierung/Viewing 
 	glMatrixMode(GL_MODELVIEW);
 }

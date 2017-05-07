@@ -14,6 +14,7 @@ private:
 	GLfloat mWidth, mHeight, mLength;
 public:
 	void initCubeMap();
-	void createVertizes(GLfloat fSeitenL);
+	//void createVertizes(GLfloat fSeitenL);
+	void createVertizes(GLfloat width, GLfloat height, GLfloat length);
 	void drawCubeMap();
 };
