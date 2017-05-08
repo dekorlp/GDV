@@ -10,7 +10,6 @@
 #include "PolygonGenerator.h"
 
 float fRotation = 315.0;
-//GLuint tex_space;    // Textur-ID
 CubeMap cubemap;
 PolygonGenerator polgen;
 
@@ -57,12 +56,17 @@ void RenderScene() //Zeichenfunktion
 	// Schiffskoerper
 	glPushMatrix();
 	//glTranslatef(0.5, 1.5, 1.5);
-	glRotatef(-fRotation / 1, 0, 1, 0);
+	//glTranslatef(5,0,0);
+	
+	glRotatef(fRotation, 0, 1, 0);
+	glTranslatef(2., 0, 2.);
+	glRotatef(90, 1, 0, 0);
 	//glScalef(2, 2, 2);
 	//polgen.createSphere(1.0, 10, 10);
 	//polgen.createCube(0.4);
 	//polgen.createCockpit(0.4);
-	polgen.createPropeller(0.4);
+	//polgen.createPropeller(0.4);
+	polgen.createCylinder(1.0, 10);
 	glPopMatrix();
 	
 
@@ -70,7 +74,6 @@ void RenderScene() //Zeichenfunktion
 	// Skybox with texture
 	glPushMatrix();
 	cubemap.drawCubeMap();
-	
 	glPopMatrix();
 
 

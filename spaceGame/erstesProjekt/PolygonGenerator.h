@@ -7,4 +7,5 @@ public:
 	void createPropeller(GLfloat fSeitenL);
 	void createCube(GLfloat fSeitenL);
 	void createSphere(GLfloat r, int lats, int longs);
+	void createCylinder(GLfloat radius, GLfloat height);
 };
