@@ -1,5 +1,7 @@
 class PolygonGenerator
 {
+private:
+
 public:
 	void createCockpit(GLfloat fSeitenL);
 	void createPropeller(GLfloat fSeitenL);

@@ -20,6 +20,7 @@ void Init()
 
 	cubemap.initCubeMap();
 	cubemap.createVertizes(2048, 2048, 2048);
+ 
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
 	GLfloat light_position[] = { -5, 2, 5, 0. };
@@ -57,10 +58,11 @@ void RenderScene() //Zeichenfunktion
 	glPushMatrix();
 	//glTranslatef(0.5, 1.5, 1.5);
 	glRotatef(-fRotation / 1, 0, 1, 0);
-	//glScalef(2, 1, 1);
-	//Wuerfel(0.4);
-	polgen.createSphere(1.0, 10, 10);
+	//glScalef(2, 2, 2);
+	//polgen.createSphere(1.0, 10, 10);
 	//polgen.createCube(0.4);
+	//polgen.createCockpit(0.4);
+	polgen.createPropeller(0.4);
 	glPopMatrix();
 	
 
