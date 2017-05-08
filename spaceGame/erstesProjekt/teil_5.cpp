@@ -7,10 +7,12 @@
 #include "WuerfelTextured.h"
 #include "Wuerfel.h"
 #include "CubeMap.h"
+#include "PolygonGenerator.h"
 
 float fRotation = 315.0;
 //GLuint tex_space;    // Textur-ID
 CubeMap cubemap;
+PolygonGenerator polgen;
 
 void Init()	
 {
@@ -39,8 +41,8 @@ float tesst = 0;
 
 void RenderScene() //Zeichenfunktion
 {
-	float cameraPositionX = 0; // Vorne: 0. 0. 6.
-	float cameraPositionY = 0.; // Schräg Oben: 1 3. 3.
+	float cameraPositionX = 1; // Vorne: 0. 0. 6.
+	float cameraPositionY = 3.; // Schräg Oben: 1 3. 3.
 	float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
 
    // Hier befindet sich der Code der in jedem Frame ausgefuehrt werden muss
@@ -48,16 +50,20 @@ void RenderScene() //Zeichenfunktion
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity ();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
 
-	glRotatef(tesst+= 0.1, 0, 1, 0);
+	//glRotatef(tesst+= 0.1, 0, 1, 0);
 	gluLookAt(cameraPositionX, cameraPositionY, cameraPositionZ, 0., 0., 0., 0., 1., 0.); // // Ansicht Schräg oben
 
 	// Schiffskoerper
-	//glPushMatrix();
+	glPushMatrix();
 	//glTranslatef(0.5, 1.5, 1.5);
-	//glRotatef(fRotation / 2, 0, 1, 0);
+	glRotatef(-fRotation / 1, 0, 1, 0);
 	//glScalef(2, 1, 1);
 	//Wuerfel(0.4);
-	//glPopMatrix();
+	polgen.createSphere(1.0, 10, 10);
+	//polgen.createCube(0.4);
+	glPopMatrix();
+	
+
    
 	// Skybox with texture
 	glPushMatrix();
@@ -65,6 +71,8 @@ void RenderScene() //Zeichenfunktion
 	
 	glPopMatrix();
 
+
+	
    
    
    
@@ -86,7 +94,7 @@ void Reshape(int width,int height)
 	// Frustum definieren (siehe unten)
 	//glOrtho( GLdouble left, GLdouble right,   GLdouble bottom, GLdouble top,   GLdouble near, GLdouble far ); 
 	//glOrtho(-1., 1., -1., 1., 0.0, 2.0);
-	gluPerspective(45., 1., 10, 2048);
+	gluPerspective(45., 1., 0.1, 2048);
 	// Matrix für Modellierung/Viewing 
 	glMatrixMode(GL_MODELVIEW);
 }
