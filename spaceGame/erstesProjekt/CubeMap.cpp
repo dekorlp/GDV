@@ -85,22 +85,22 @@ void CubeMap::createVertizes(GLfloat width, GLfloat height, GLfloat length)
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z + length);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, Top);
+	glBindTexture(GL_TEXTURE_2D, Bottom);
 	glBegin(GL_QUADS);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x, y, z);					
 	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y, z + length);
 	glTexCoord2f(0.0f, 1.0f); glVertex3f(x + width, y, z + length);
 	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y, z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, Bottom);
+	glBindTexture(GL_TEXTURE_2D, Top);
 	glBegin(GL_QUADS);
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3f(x + width, y + height, z);
-	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z + length);
-	glTexCoord2f(1.0f, 1.0f); glVertex3f(x, y + height, z + length);
-	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(x + width, y + height, z);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(x + width, y + height, z + length);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(x, y + height, z + length);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(x, y + height, z);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, Left);

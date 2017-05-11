@@ -41,8 +41,8 @@ float tesst = 0;
 
 void RenderScene() //Zeichenfunktion
 {
-	float cameraPositionX = 3; // Vorne: 0. 0. 6.
-	float cameraPositionY = 3; // Schräg Oben: 1 3. 3.
+	float cameraPositionX = 0; // Vorne: 0. 0. 6.
+	float cameraPositionY = 0; // Schräg Oben: 1 3. 3.
 	float cameraPositionZ = -5; // Schräg unten: 1. -2. 3.
 
    // Hier befindet sich der Code der in jedem Frame ausgefuehrt werden muss
@@ -56,17 +56,10 @@ void RenderScene() //Zeichenfunktion
 	glRotatef(tesst += 0.2, 0, 1, 0);
 	polgen.createShip(3);
 	
-
-   
 	// Skybox with texture
 	glPushMatrix();
 	cubemap.drawCubeMap();
 	glPopMatrix();
-
-
-	
-   
-   
    
 	glutSwapBuffers();
 	glFlush();
