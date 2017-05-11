@@ -300,36 +300,92 @@ void PolygonGenerator::createSphere(GLfloat r, int lats, int longs)
 
 void PolygonGenerator::createCylinder(GLfloat radius, GLfloat height)
 {
-	GLfloat x = 0.0;
-	GLfloat y = 0.0;
-	GLfloat angle = 0.0;
-	GLfloat angle_stepsize = 0.1;
+	glColor4f(1.0f, 0.0f, 0.0f, 1.0f); //BLAU
+	GLUquadricObj *quadObj;
 
-	/** Draw the tube */
-	//glColor3ub(R - 40, G - 40, B - 40);
-	glBegin(GL_QUAD_STRIP);
-	angle = 0.0;
-	while (angle < 2 * M_PI) {
-		x = radius * cos(angle);
-		y = radius * sin(angle);
-		glVertex3f(x, y, height);
-		glVertex3f(x, y, 0.0);
-		angle = angle + angle_stepsize;
-	}
-	glVertex3f(radius, 0.0, height);
-	glVertex3f(radius, 0.0, 0.0);
-	glEnd();
+	quadObj = gluNewQuadric();
+	gluQuadricDrawStyle(quadObj, GLU_FILL);
+	gluQuadricNormals(quadObj, GLU_SMOOTH);
+	gluCylinder(quadObj, 0.1, 0.1, 0.1, 24, 4);
+}
 
-	/** Draw the circle on top of cylinder */
-	//glColor3ub(R, G, B);
-	glBegin(GL_POLYGON);
-	angle = 0.0;
-	while (angle < 2 * M_PI) {
-		x = radius * cos(angle);
-		y = radius * sin(angle);
-		glVertex3f(x, y, height);
-		angle = angle + angle_stepsize;
-	}
-	glVertex3f(radius, 0.0, height);
-	glEnd();
+void PolygonGenerator::createShip(GLfloat rotationSpeed)
+{
+	glPushMatrix();
+		// Shuttle Cockpit
+		glPushMatrix();
+			glTranslatef(-1.46, 0, 0);
+			glRotatef(90, 0, 1, 0);
+			createCockpit(0.4);
+		glPopMatrix();
+	
+		// Shuttlekörper
+		glPushMatrix();
+			glScalef(3,1,1);
+			glTranslatef(-0.22,0,0);
+			createCube(0.4);
+		glPopMatrix();
+
+		// Shuttle Hinten Flügel Rechts
+		glPushMatrix();
+			glRotatef(-35, 0, 1, 0);
+			glScalef(1.5, 0.5, 5);
+			glTranslatef(-0.5, 0, -0.10);
+			createPropeller(0.4);
+		glPopMatrix();
+
+		// Shuttle Hinten Flügel Links
+		glPushMatrix();
+			glRotatef(215, 0, 1, 0);
+			glScalef(1.5, 0.5, 5);
+			glTranslatef(0.5, 0, -0.10);
+			createPropeller(0.4);
+		glPopMatrix();
+
+	
+		glRotatef(propellerRotationSpeed += rotationSpeed, 1, 0, 0);
+		glPushMatrix();
+			// Halterung der Propeller
+			glPushMatrix();
+			glTranslatef(-0.1, 0, 0);
+			glRotatef(90, 0,1,0);
+			
+			createCylinder(2, 0.4);
+			glPopMatrix();
+
+			// Oberer Propeller
+			glPushMatrix();
+			glScalef(0.1, 1, 0.1);
+			glTranslatef(-0.2, 0.3, 0.0);
+			createCube(0.4);
+			glPopMatrix();
+
+
+			// Unterer Propeller Propeller
+			glPushMatrix();
+			glScalef(0.1, 1, 0.1);
+			glTranslatef(-0.2, -0.3, 0);
+			createCube(0.4);
+			glPopMatrix();
+
+			// Hinten rechter Propeller
+			glPushMatrix();
+			glRotatef(90, 1,0,0);
+			glScalef(0.1, 1, 0.1);
+			glTranslatef(-0.2, -0.3, 0);
+			createCube(0.4);
+			glPopMatrix();
+
+			// Hinten linker Propeller
+			glPushMatrix();
+			glRotatef(90, 1, 0, 0);
+			glScalef(0.1, 1, 0.1);
+			glTranslatef(-0.2, 0.3, 0);
+			createCube(0.4);
+			glPopMatrix();
+		glPopMatrix();
+
+	glPopMatrix();
+
+
 }

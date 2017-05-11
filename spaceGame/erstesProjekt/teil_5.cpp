@@ -41,33 +41,20 @@ float tesst = 0;
 
 void RenderScene() //Zeichenfunktion
 {
-	float cameraPositionX = 1; // Vorne: 0. 0. 6.
-	float cameraPositionY = 3.; // Schräg Oben: 1 3. 3.
-	float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
+	float cameraPositionX = 3; // Vorne: 0. 0. 6.
+	float cameraPositionY = 3; // Schräg Oben: 1 3. 3.
+	float cameraPositionZ = -5; // Schräg unten: 1. -2. 3.
 
    // Hier befindet sich der Code der in jedem Frame ausgefuehrt werden muss
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity ();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
 
-	//glRotatef(tesst+= 0.1, 0, 1, 0);
+	//glRotatef(tesst+= 0.1, 0, 0, 1);
 	gluLookAt(cameraPositionX, cameraPositionY, cameraPositionZ, 0., 0., 0., 0., 1., 0.); // // Ansicht Schräg oben
 
-	// Schiffskoerper
-	glPushMatrix();
-	//glTranslatef(0.5, 1.5, 1.5);
-	//glTranslatef(5,0,0);
-	
-	glRotatef(fRotation, 0, 1, 0);
-	glTranslatef(2., 0, 2.);
-	glRotatef(90, 1, 0, 0);
-	//glScalef(2, 2, 2);
-	//polgen.createSphere(1.0, 10, 10);
-	//polgen.createCube(0.4);
-	//polgen.createCockpit(0.4);
-	//polgen.createPropeller(0.4);
-	polgen.createCylinder(1.0, 10);
-	glPopMatrix();
+	glRotatef(tesst += 0.2, 0, 1, 0);
+	polgen.createShip(3);
 	
 
    
