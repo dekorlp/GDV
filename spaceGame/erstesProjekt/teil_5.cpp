@@ -20,6 +20,8 @@ void Init()
 	cubemap.initCubeMap();
 	cubemap.createVertizes(2048, 2048, 2048);
  
+	polgen.initPolygonGenerator();
+
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
 	GLfloat light_position[] = { -5, 2, 5, 0. };
@@ -27,6 +29,8 @@ void Init()
 
 	glEnable(GL_COLOR_MATERIAL);
 
+	glEnable (GL_BLEND);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glEnable(GL_DEPTH_TEST);
 	glClearDepth(1.0);
@@ -35,15 +39,13 @@ void Init()
 	glEnable(GL_NORMALIZE);
 }
 
-float counter = 0;
-
 float tesst = 0;
 
 void RenderScene() //Zeichenfunktion
 {
 	float cameraPositionX = 0; // Vorne: 0. 0. 6.
 	float cameraPositionY = 0; // Schräg Oben: 1 3. 3.
-	float cameraPositionZ = -5; // Schräg unten: 1. -2. 3.
+	float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
 
    // Hier befindet sich der Code der in jedem Frame ausgefuehrt werden muss
 
@@ -54,8 +56,12 @@ void RenderScene() //Zeichenfunktion
 	gluLookAt(cameraPositionX, cameraPositionY, cameraPositionZ, 0., 0., 0., 0., 1., 0.); // // Ansicht Schräg oben
 
 	glRotatef(tesst += 0.2, 0, 1, 0);
+
+	glEnable(GL_TEXTURE_2D);
 	polgen.createShip(3);
-	
+	glDisable(GL_TEXTURE_2D);
+
+
 	// Skybox with texture
 	glPushMatrix();
 	cubemap.drawCubeMap();
