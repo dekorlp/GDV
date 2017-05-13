@@ -83,11 +83,11 @@ void CameraManager::setThirdPersonCamera(float mouseX, float mouseY)
 	pitch -= offsetY;
 	yaw += offsetX;
 
-	if (pitch > 89.0f)
-		pitch = 89.0f;
+	if (pitch > 35.0f)
+		pitch = 35.0f;
 
-	if (pitch < -89.0f)
-		pitch = -89.0f;
+	if (pitch < -35.0f)
+		pitch = -35.0f;
 
 	
 

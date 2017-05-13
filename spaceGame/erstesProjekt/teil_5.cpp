@@ -174,7 +174,7 @@ void Animate (int value)
 
 void mouseMove(int x, int y)
 {
-	//cameraManager.setThirdPersonCamera(x, y);
+	cameraManager.setThirdPersonCamera(x, y);
 	//tesst += xRotation ;
 }
 
