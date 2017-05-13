@@ -81,11 +81,6 @@ void RenderScene() //Zeichenfunktion
 			if (positionShip1Z >= 5)
 			{
 				renderShip2 = true;
-				//if (positionShip1Z >= 20)
-				//{
-					//positionShip1X = 0;
-					//positionShip1Z = 0;
-				//}
 			}
 			polgen.createShip(3);
 		glPopMatrix();
@@ -112,9 +107,18 @@ void RenderScene() //Zeichenfunktion
 				glRotatef(-90, 0, 1, 0);
 				glTranslatef(20, 0, -10);
 				glTranslatef(positionShip3X -= 0.05, 0, positionShip3Z += 0.02);
-				if (positionShip3Z <= 0)
+				if (positionShip3X <= -30)
 				{
+					positionShip1X = 0;
+					positionShip1Z = 0;
+
+					positionShip2X = 0;
+					positionShip2Z = 0;
+					positionShip2Y = 0;
+
+					positionShip3X = 0;
 					positionShip3Z = 0;
+
 				}
 				polgen.createShip(3);
 			glPopMatrix();
