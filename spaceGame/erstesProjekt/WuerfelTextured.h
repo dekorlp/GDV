@@ -1,1 +1,0 @@
-void WuerfelTextured( GLfloat fSeitenL );

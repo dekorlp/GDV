@@ -5,6 +5,12 @@ private:
 	GLuint hull;
 	GLuint carbon;
 
+	GLfloat oldMousePositionX;
+	GLfloat oldMousePositionY;
+
+	float pitch;
+	float yaw;
+
 public:
 	void initPolygonGenerator();
 	void createCockpit(GLfloat fSeitenL);

@@ -311,6 +311,7 @@ void PolygonGenerator::createCylinder(GLfloat radius, GLfloat height)
 
 void PolygonGenerator::createShip(GLfloat rotationSpeed)
 {
+	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();
 		// Shuttle Cockpit
 		glPushMatrix();
@@ -401,6 +402,5 @@ void PolygonGenerator::createShip(GLfloat rotationSpeed)
 		glPopMatrix();
 
 	glPopMatrix();
-
-
+	glDisable(GL_TEXTURE_2D);
 }

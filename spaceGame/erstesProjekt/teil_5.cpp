@@ -4,14 +4,16 @@
 #include <iostream> 
 #include <GL/freeglut.h>         //lädt alles für OpenGL
 #include <GL/SOIL.h>
-#include "WuerfelTextured.h"
-#include "Wuerfel.h"
+#include "CameraManager.h"
 #include "CubeMap.h"
 #include "PolygonGenerator.h"
 
 float fRotation = 315.0;
 CubeMap cubemap;
 PolygonGenerator polgen;
+CameraManager cameraManager;
+
+//float xRotation = 0;
 
 void Init()	
 {
@@ -39,27 +41,80 @@ void Init()
 	glEnable(GL_NORMALIZE);
 }
 
-float tesst = 0;
+//float oldPitch = 114.73;
+//float tesst = 0;
+
+float positionShip1X = 0;
+float positionShip1Z = 0;
+
+float positionShip2X = 0;
+float positionShip2Z = 0;
+
+float positionShip3X = 0;
+float positionShip3Z = 0;
+
+bool renderShip2;
+
+bool renderShip3;
 
 void RenderScene() //Zeichenfunktion
 {
-	float cameraPositionX = 0; // Vorne: 0. 0. 6.
-	float cameraPositionY = 0; // Schräg Oben: 1 3. 3.
-	float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
+	//float cameraPositionX = 0; // Vorne: 0. 0. 6.
+	//float cameraPositionY = 0; // Schräg Oben: 1 3. 3.
+	//float cameraPositionZ = -10; // Schräg unten: 1. -2. 3.
 
-   // Hier befindet sich der Code der in jedem Frame ausgefuehrt werden muss
-
+	//cameraManager.setCameraPosition(0,0, -10);
+	//cameraManager.setCameraLookAtPosition(0, 0, 0);
+	//cameraManager.setThirdPersonCamera();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity ();   // Aktuelle Model-/View-Transformations-Matrix zuruecksetzen
 
 	//glRotatef(tesst+= 0.1, 0, 0, 1);
-	gluLookAt(cameraPositionX, cameraPositionY, cameraPositionZ, 0., 0., 0., 0., 1., 0.); // // Ansicht Schräg oben
+	cameraManager.repositionCamera();
 
-	glRotatef(tesst += 0.2, 0, 1, 0);
 
-	glEnable(GL_TEXTURE_2D);
-	polgen.createShip(3);
-	glDisable(GL_TEXTURE_2D);
+	glPushMatrix();
+		glRotatef(45, 0,1,0);
+		glTranslatef(5,-3,0);
+		glTranslatef(positionShip1X-=0.02, 0, positionShip1Z+= 0.01);
+		if (positionShip1Z >= 5)
+		{
+			renderShip2 = true;
+			//if (positionShip1Z >= 20)
+			//{
+				//positionShip1X = 0;
+				//positionShip1Z = 0;
+			///}
+		}
+		polgen.createShip(3);
+	
+	glPopMatrix();
+
+		if (renderShip2 == true)
+		{
+			
+			glPushMatrix();
+			glRotatef(80, 0, 1, 0);
+				glTranslatef(5, -3, 0);
+				glTranslatef(positionShip2X -= 0.02, 0, positionShip2Z += 0.01);
+				if (positionShip2Z >= 10)
+				{
+					renderShip3 = true;
+				}
+				polgen.createShip(3);
+			glPopMatrix();
+		}
+
+		if (renderShip3 == true)
+		{
+			glPushMatrix();
+				glRotatef(20, 0, 1, 0);
+				glTranslatef(5, -3, 10);
+				glTranslatef(positionShip3X -= 0.02, 0, positionShip3Z += 0.01);
+				polgen.createShip(3);
+			glPopMatrix();
+
+		}
 
 
 	// Skybox with texture
@@ -82,10 +137,7 @@ void Reshape(int width,int height)
 	glLoadIdentity();
 	// Viewport definieren  
 	glViewport(0, 0, width, height);
-	// Frustum definieren (siehe unten)
-	//glOrtho( GLdouble left, GLdouble right,   GLdouble bottom, GLdouble top,   GLdouble near, GLdouble far ); 
-	//glOrtho(-1., 1., -1., 1., 0.0, 2.0);
-	gluPerspective(45., 1., 0.1, 2048);
+	cameraManager.reshapeDisplay(0.1, 2048);
 	// Matrix für Modellierung/Viewing 
 	glMatrixMode(GL_MODELVIEW);
 }
@@ -97,7 +149,6 @@ void Animate (int value)
    // 1000 msec aufgerufen. Der Parameter "value" wird einfach nur um eins 
    // inkrementiert und dem Callback wieder uebergeben. 
    std::cout << "value=" << value << std::endl;
-
    // Rotationsvariable akke 1000msec ändern
    fRotation = fRotation - 1.0;  // Rotationswinkel aendern
    if (fRotation <= 0.0)
@@ -112,16 +163,29 @@ void Animate (int value)
    glutTimerFunc(wait_msec, Animate, ++value);
 }
 
+void mouseMove(int x, int y)
+{
+	//cameraManager.setThirdPersonCamera(x, y);
+	//tesst += xRotation ;
+}
+
 int main(int argc, char **argv)
 {
    glutInit( &argc, argv );                // GLUT initialisieren
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-   glutInitWindowSize( 1024,  1080);         // Fenster-Konfiguration
+   glutInitWindowSize( 600,  600);         // Fenster-Konfiguration
+   cameraManager = CameraManager(ViewOptions::perspective, 600, 600);
+   cameraManager.setCameraPosition(0, 0, -10);
+   cameraManager.setCameraLookAtPosition(0, 0, 0);
+
+
    glutCreateWindow( "Dennis Köhler; Michael Klimek" );   // Fenster-Erzeugung
    glutDisplayFunc( RenderScene );         // Zeichenfunktion bekannt machen
    glutReshapeFunc( Reshape );
    // TimerCallback registrieren; wird nach 10 msec aufgerufen mit Parameter 0  
    glutTimerFunc( 10, Animate, 0);
+
+   glutPassiveMotionFunc(mouseMove);
    Init();
    glutMainLoop();
    return 0;

@@ -69,20 +69,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="PolygonGenerator.cpp" />
     <ClCompile Include="teil_5.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Wuerfel.cpp" />
-    <ClCompile Include="WuerfelTextured.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="PolygonGenerator.h" />
-    <ClInclude Include="Wuerfel.h" />
-    <ClInclude Include="WuerfelTextured.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

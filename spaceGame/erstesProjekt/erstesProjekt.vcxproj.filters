@@ -15,13 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Wuerfel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="teil_5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WuerfelTextured.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeMap.cpp">
@@ -30,18 +24,18 @@
     <ClCompile Include="PolygonGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Wuerfel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WuerfelTextured.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CubeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PolygonGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
