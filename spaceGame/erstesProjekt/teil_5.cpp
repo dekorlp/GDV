@@ -49,6 +49,7 @@ float positionShip1Z = 0;
 
 float positionShip2X = 0;
 float positionShip2Z = 0;
+float positionShip2Y = 0;
 
 float positionShip3X = 0;
 float positionShip3Z = 0;
@@ -73,31 +74,31 @@ void RenderScene() //Zeichenfunktion
 	cameraManager.repositionCamera();
 
 
-	glPushMatrix();
-		glRotatef(45, 0,1,0);
-		glTranslatef(5,-3,0);
-		glTranslatef(positionShip1X-=0.02, 0, positionShip1Z+= 0.01);
-		if (positionShip1Z >= 5)
-		{
-			renderShip2 = true;
-			//if (positionShip1Z >= 20)
-			//{
-				//positionShip1X = 0;
-				//positionShip1Z = 0;
-			///}
-		}
-		polgen.createShip(3);
-	
-	glPopMatrix();
+		glPushMatrix();
+			glRotatef(45, 0,1,0);
+			glTranslatef(5,-3,0);
+			glTranslatef(positionShip1X-=0.02, 0, positionShip1Z+= 0.01);
+			if (positionShip1Z >= 5)
+			{
+				renderShip2 = true;
+				//if (positionShip1Z >= 20)
+				//{
+					//positionShip1X = 0;
+					//positionShip1Z = 0;
+				//}
+			}
+			polgen.createShip(3);
+		glPopMatrix();
 
 		if (renderShip2 == true)
 		{
 			
 			glPushMatrix();
-			glRotatef(80, 0, 1, 0);
+				glRotatef(150, 0, 1, 0);
+				glRotatef(-15, 1, 0, 0);
 				glTranslatef(5, -3, 0);
-				glTranslatef(positionShip2X -= 0.02, 0, positionShip2Z += 0.01);
-				if (positionShip2Z >= 10)
+				glTranslatef(positionShip2X -= 0.02, positionShip2Y += 0.01, positionShip2Z -= 0.01);
+				if (positionShip2Z <= -10)
 				{
 					renderShip3 = true;
 				}
@@ -105,12 +106,16 @@ void RenderScene() //Zeichenfunktion
 			glPopMatrix();
 		}
 
-		if (renderShip3 == true)
+		if (renderShip3 == true) // irgendwie ist die X und die Z Achse beim dritten Schiff vertauscht
 		{
 			glPushMatrix();
-				glRotatef(20, 0, 1, 0);
-				glTranslatef(5, -3, 10);
-				glTranslatef(positionShip3X -= 0.02, 0, positionShip3Z += 0.01);
+				glRotatef(-90, 0, 1, 0);
+				glTranslatef(20, 0, -10);
+				glTranslatef(positionShip3X -= 0.05, 0, positionShip3Z += 0.02);
+				if (positionShip3Z <= 0)
+				{
+					positionShip3Z = 0;
+				}
 				polgen.createShip(3);
 			glPopMatrix();
 
