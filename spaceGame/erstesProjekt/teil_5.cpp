@@ -24,10 +24,18 @@ void Init()
  
 	polgen.initPolygonGenerator();
 
+	
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_shininess[] = { 50.0 };
+	GLfloat light_position[] = { 5, 3, 5, 0. };
+	glShadeModel(GL_SMOOTH);
+
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position); // Licht Nr. 0 rechts oben
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
-	GLfloat light_position[] = { -5, 2, 5, 0. };
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position); // Licht Nr. 0 rechts oben
 
 	glEnable(GL_COLOR_MATERIAL);
 
