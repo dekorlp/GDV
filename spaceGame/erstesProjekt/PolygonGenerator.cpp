@@ -6,8 +6,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
+// Texturen werden geladen
 void PolygonGenerator::initPolygonGenerator()
 {
+
 	hull = SOIL_load_OGL_texture("textures/hull.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID,
 		SOIL_FLAG_MIPMAPS | SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT);
 	if (hull == 0)
@@ -22,13 +24,13 @@ void PolygonGenerator::initPolygonGenerator()
 	{
 		std::cout << "Textur Carbon konnte nicht geladen werden" << std::endl;
 	}
-
 }
 
+// Würfel wird erstellt, raumschiffkörper, Rumpf
 void PolygonGenerator::createCube(GLfloat fSeitenL)
 {
 	glBegin(GL_POLYGON);   //Vorderseite
-	glNormal3f(0.0f, 0.0f, 1.0f);
+	glNormal3f(0.0f, 0.0f, 1.0f); // Normale wird gesetzt für Beleuchtung
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f); //BLAU
 	glTexCoord2f(0, 0); glVertex3f(-fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
 	glTexCoord2f(1, 0); glVertex3f(+fSeitenL / 2.0f, -fSeitenL / 2.0f, +fSeitenL / 2.0f);
@@ -171,6 +173,7 @@ void PolygonGenerator::createCockpit(GLfloat fSeitenL)
 	glEnd();
 }
 
+// Die Flügel
 void PolygonGenerator::createPropeller(GLfloat fSeitenL)
 {
 	glBegin(GL_POLYGON);   //Vorderseite

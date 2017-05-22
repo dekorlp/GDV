@@ -61,11 +61,12 @@ void CubeMap::createVertizes(GLfloat width, GLfloat height, GLfloat length)
 	cubeMapList = glGenLists(1);
 	glNewList(cubeMapList, GL_COMPILE);
 
+	// damit die CubeMap im Ursprung ist
 	x = x - width / 2;
 	y = y - height / 2;
 	z = z - length / 2;
 	
-
+	// Cube wird erstellt und Texturen werden gesetzt
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D,  Front);
 	glBegin(GL_QUADS);
@@ -131,7 +132,7 @@ void CubeMap::drawCubeMap()
 	glDepthMask(false);
 	glDisable(GL_LIGHTING);
 	glEnable(GL_TEXTURE_2D);
-	glCallList(cubeMapList);
+	glCallList(cubeMapList); // Liste aus Vertizes wird einfach gezeichnet, vorerstellt im Buffer
 	glDisable(GL_TEXTURE_2D);
 	glEnable(GL_LIGHTING);
 	glDepthMask(true);

@@ -19,16 +19,16 @@ void Init()
 {
 	glClearColor(0.33f, 0.225f, 0.0f, 1.0f);
 
-	cubemap.initCubeMap();
-	cubemap.createVertizes(2048, 2048, 2048);
+	cubemap.initCubeMap(); // laden der Texturen
+	cubemap.createVertizes(2048, 2048, 2048); // erstellen der vertizes
  
-	polgen.initPolygonGenerator();
+	polgen.initPolygonGenerator(); // laden der texturen
 
 	
-	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
-	GLfloat mat_shininess[] = { 50.0 };
-	GLfloat light_position[] = { 5, 3, 5, 0. };
-	glShadeModel(GL_SMOOTH);
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 }; // Farbmischung des Lichts ->weiß
+	GLfloat mat_shininess[] = { 50.0 }; // Größe des Lichts
+	GLfloat light_position[] = { 5, 3, 5, 0. }; // Lichtposition
+	glShadeModel(GL_SMOOTH); //Gouraid Shading
 
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position); // Licht Nr. 0 rechts oben
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
@@ -154,7 +154,7 @@ void Reshape(int width,int height)
 	glLoadIdentity();
 	// Viewport definieren  
 	glViewport(0, 0, width, height);
-	cameraManager.reshapeDisplay(0.1, 2048);
+	cameraManager.reshapeDisplay(0.1, 2048); // near Plane und far Plane setzen
 	// Matrix für Modellierung/Viewing 
 	glMatrixMode(GL_MODELVIEW);
 }
@@ -180,7 +180,7 @@ void Animate (int value)
    glutTimerFunc(wait_msec, Animate, ++value);
 }
 
-void mouseMove(int x, int y)
+void mouseMove(int x, int y) // wird aufgerufen wenn die Mau bewegt wird
 {
 	cameraManager.setThirdPersonCamera(x, y);
 	//tesst += xRotation ;
@@ -190,8 +190,8 @@ int main(int argc, char **argv)
 {
    glutInit( &argc, argv );                // GLUT initialisieren
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-   glutInitWindowSize( 600,  600);         // Fenster-Konfiguration
-   cameraManager = CameraManager(ViewOptions::perspective, 600, 600);
+   glutInitWindowSize( 1024,  1080);         // Fenster-Konfiguration
+   cameraManager = CameraManager(ViewOptions::perspective, 1024, 1080);
    cameraManager.setCameraPosition(0, 0, -10);
    cameraManager.setCameraLookAtPosition(0, 0, 0);
 
